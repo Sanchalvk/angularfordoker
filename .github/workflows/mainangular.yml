@@ -19,7 +19,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Navigate to project directory
-        run: cd ./ autoca-live-divingsum-main/src/app/views/theme
+        run: cd ./autoca-live-divingsum-main
 
       - name: Install dependencies
         run: npm install
