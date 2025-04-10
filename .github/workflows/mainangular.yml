@@ -1,0 +1,25 @@
+name: Angular Lint
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Use the latest version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # Use the latest version
+        with:
+          node-version: 'lts/*' # Use a stable LTS version of Node.js
+
+      - name: Install dependencies
+        run: npm install # Or yarn install
+
+      - name: Run Angular Linter
+        run: npm run lint # Executes the 'lint' script defined in your package.json
