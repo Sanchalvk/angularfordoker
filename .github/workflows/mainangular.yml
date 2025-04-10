@@ -1,4 +1,4 @@
-name: Lint Angular Code
+name: Angular Lint
 
 on:
   push:
@@ -8,32 +8,20 @@ on:
 
 jobs:
   lint:
-    name: Linting
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 # Use the latest version
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*' # Use a stable LTS version
-          cache: 'npm'
+          node-version: 22 # or any version you want
+          # cache: 'npm' # remove this if no lockfile
 
-      
-      - name: List files (debug)
-        run: ls -la
+      - name: Install dependencies
+        run: npm install
 
-      - name: Install dependencies with fallback
-        run: |
-          if [ -f package-lock.json ]; then
-            echo "Using npm ci"
-            npm ci
-          else
-            echo "No lockfile found, using npm install"
-            npm install
-          fi
-
-      - name: Run ESLint
+      - name: Run lint
         run: npm run lint
