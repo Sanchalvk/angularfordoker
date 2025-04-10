@@ -19,10 +19,12 @@ jobs:
         with:
           node-version: 18
 
-      - name: Debug - List Files
-        run: ls -la
+      - name: Navigate to Angular Project Folder
+        run: cd autoca-live-divingsum-main
+        shell: bash
 
       - name: Install Dependencies
+        working-directory: autoca-live-divingsum-main
         run: |
           if [ -f package-lock.json ]; then
             echo "Using npm ci"
@@ -33,4 +35,5 @@ jobs:
           fi
 
       - name: Run Linter
+        working-directory: autoca-live-divingsum-main
         run: npm run lint
