@@ -1,0 +1,27 @@
+name: ESLint Check # The name of your workflow
+
+on:
+  pull_request: # Trigger this workflow on pull requests
+    types: [opened, synchronize] # Run when a PR is opened or updated
+    branches:
+      - main # Replace 'main' with the name of your main development branch
+
+jobs:
+  eslint: # The name of the job
+    name: Run ESLint # A more descriptive name for the job
+    runs-on: ubuntu-latest # The type of machine to run the job on
+
+    steps:
+      - name: Checkout code # Step to download your repository's code
+        uses: actions/checkout@v4 # Use the latest version
+
+      - name: Setup Node.js # Step to set up the Node.js environment
+        uses: actions/setup-node@v4 # Use the latest version
+        with:
+          node-version: 'lts/*' # Use the latest LTS version of Node.js
+
+      - name: Install dependencies # Step to install project dependencies
+        run: npm install # Or yarn install
+
+      - name: Lint # Step to run the ESLint command
+        run: npm run lint # This will execute the 'lint' script from your package.json
