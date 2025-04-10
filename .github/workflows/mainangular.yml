@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Run Angular Linter
-        uses: actions/eslint@v3 # Check for the latest version
+        uses: actions/eslint@latest # Using the latest version
         with:
           cwd: ./autoca-live-divingsum-main # Set the working directory
           extensions: .ts,.tsx,.js,.jsx,.html
