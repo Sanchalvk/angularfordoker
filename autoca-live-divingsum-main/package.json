@@ -54,6 +54,7 @@
     "@types/jasmine": "^5.1.7",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.13.10",
+    "eslint": "^8.56.0",
     "jasmine-core": "^5.6.0",
     "karma": "^6.4.4",
     "karma-chrome-launcher": "^3.2.0",
@@ -74,3 +75,4 @@
     "url": "git+https://github.com/coreui/coreui-free-angular-admin-template.git"
   }
 }
+
