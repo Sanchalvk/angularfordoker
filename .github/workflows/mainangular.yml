@@ -11,15 +11,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Use the latest version
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4 # Use the latest version
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*' # Use a stable LTS version of Node.js
+          node-version: 'lts/*'
+
+      - name: Navigate to project directory
+        run: cd ./ autoca-live-divingsum-main/src/app/views/theme
 
       - name: Install dependencies
-        run: npm install # Or yarn install
+        run: npm install
 
       - name: Run Angular Linter
-        run: npm run lint # Executes the 'lint' script defined in your package.json
+        run: npm run lint
