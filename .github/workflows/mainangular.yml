@@ -2,7 +2,9 @@ name: Angular Lint
 
 on:
   push:
-    branches: [main]
+    branches: [main] # Or your main development branch (e.g., master, develop)
+  pull_request:
+    branches: [main] # Or the branches you want to check pull requests against
 
 jobs:
   lint:
@@ -16,18 +18,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: 'lts/*' # Use the latest LTS version of Node.js
 
       - name: Navigate to project directory
-        run: cd ./autoca-live-divingsum-main
+        run: cd ./ # Assuming your package.json is in the root
 
       - name: Install dependencies
-        run: npm install
+        run: npm install # Or yarn install
 
       - name: Run Angular Linter
-        uses: actions/eslint@v3 # Using a specific version
-        with:
-          cwd: ./autoca-live-divingsum-main # Set the working directory
-          extensions: .ts,.tsx,.js,.jsx,.html
-          report_unused_disable_directives: true
-          max_warnings: 0
+        run: npm run lint
