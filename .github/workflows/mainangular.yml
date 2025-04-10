@@ -37,4 +37,3 @@ jobs:
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
         run: npm run lint
-        
