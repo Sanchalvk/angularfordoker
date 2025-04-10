@@ -16,7 +16,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint ."  <-- ADD YOUR LINTING COMMAND HERE
+    "lint": "eslint ."
   },
   "private": true,
   "dependencies": {
