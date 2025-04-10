@@ -8,18 +8,20 @@ on:
 
 jobs:
   lint:
+    name: Linting
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Use the latest version
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 'lts/*' # Use a stable LTS version
           cache: 'npm'
 
+      
       - name: List files (debug)
         run: ls -la
 
