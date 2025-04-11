@@ -37,6 +37,14 @@ jobs:
           npm install prettier@latest --save-dev
           npm install eslint-config-prettier@latest --save-dev
 
-      - name: Run Linter
+      - name: Run Linter (TypeScript Only)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint
+        run: npm run lint "**/*.ts"
+
+      - name: Run Linter (Component HTML Only)
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint "**/*.component.html"
+
+      - name: Run Linter (Specific Component HTML)
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint "src/app/your-component/your-component.component.html"
