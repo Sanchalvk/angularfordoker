@@ -27,6 +27,10 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
+      - name: Test ESM Import
+        working-directory: autoca-live-divingsum-main
+        run: node -e "import('./.eslintrc.mjs').then(console.log).catch(console.error);"
+
       - name: Build Angular Application
         working-directory: autoca-live-divingsum-main
         run: npm run build
@@ -34,4 +38,3 @@ jobs:
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
         run: npm run lint
-        
