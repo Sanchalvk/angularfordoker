@@ -27,6 +27,6 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Run Linter (using package.json script)
+      - name: Run Linter
         working-directory: autoca-live-divingsum-main
         run: npm run lint
