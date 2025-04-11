@@ -23,14 +23,13 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
+      - name: List Project Contents
+        run: ls -al
+        shell: bash
+
       - name: Install Dependencies
         working-directory: autoca-live-divingsum-main
         run: npm install
-
-      - name: Update Lock File (if necessary)
-        working-directory: autoca-live-divingsum-main
-        run: |
-          git diff --exit-code package-lock.json || npm update --package-lock-only
 
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
