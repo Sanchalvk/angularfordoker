@@ -27,13 +27,15 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Install Missing ESLint Plugins and Parser
+      - name: Install Missing ESLint Plugins and Configs
         working-directory: autoca-live-divingsum-main
         run: |
           npm install @typescript-eslint/eslint-plugin@latest --save-dev
           npm install @angular-eslint/eslint-plugin@latest --save-dev
           npm install @angular-eslint/eslint-plugin-template@latest --save-dev
           npm install @angular-eslint/template-parser@latest --save-dev
+          npm install prettier@latest --save-dev
+          npm install eslint-config-prettier@latest --save-dev
 
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
