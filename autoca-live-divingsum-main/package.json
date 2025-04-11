@@ -16,8 +16,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint $1",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --ext .ts,.js",      // Corrected and more specific lint script
+    "lint:fix": "eslint . --ext .ts,.js --fix", // Corrected and more specific lint:fix script
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
