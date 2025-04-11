@@ -1,8 +1,10 @@
-name: Pull Request Validations
+name: Angular Lint
 
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
   lint:
@@ -10,28 +12,39 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 # Use a more recent version
-      - name: Set up Node.js
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+
       - name: Navigate to Angular Project Folder
         run: cd autoca-live-divingsum-main
         shell: bash
-      - name: Install Dependencies
+
+      - name: Install Dependencies (Update Lock File)
         working-directory: autoca-live-divingsum-main
-        run: npm ci
-      - name: Run ESLint
+        run: npm install
+
+      - name: Install Missing ESLint Plugins and Configs (Force Resolution)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint
-      - name: Run Stylelint (if configured)
+        run: |
+          npm install @typescript-eslint/eslint-plugin@latest --save-dev --force
+          npm install @angular-eslint/eslint-plugin@latest --save-dev --force
+          npm install @angular-eslint/eslint-plugin-template@latest --save-dev --force
+          npm install @angular-eslint/template-parser@latest --save-dev --force
+          npm install prettier@latest --save-dev --force
+          npm install eslint-config-prettier@latest --save-dev --force
+
+      - name: Run Linter (TypeScript Only)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint:styles || true
-      # Optional: Check Formatting with Prettier
-      # - name: Check Formatting with Prettier
-      #   working-directory: autoca-live-divingsum-main
-      #   run: npm run format:check || true
-      # Optional: Fix ESLint Issues (use with caution on PRs)
-      # - name: Fix ESLint Issues
-      #   working-directory: autoca-live-divingsum-main
-      #   run: npm run lint:fix
+        run: npm run lint "**/*.ts"
+
+      - name: Run Linter (Component HTML Only)
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint "**/*.component.html"
+
+      - name: Run Linter (Specific Component HTML)
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint "src/app/your-component/your-component.component.html"
