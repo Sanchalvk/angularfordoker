@@ -23,8 +23,20 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: List Project Contents
-        run: ls -al
+      - name: Create Basic ESLint Config (DEBUGGING ONLY)
+        run: |
+          echo '{
+            "extends": "eslint:recommended",
+            "parserOptions": {
+              "ecmaVersion": "latest",
+              "sourceType": "module"
+            },
+            "env": {
+              "browser": true,
+              "es2021": true
+            }
+          }' > .eslintrc.json
+        working-directory: autoca-live-divingsum-main
         shell: bash
 
       - name: Install Dependencies
