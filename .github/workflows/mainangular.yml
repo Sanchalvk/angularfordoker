@@ -27,15 +27,9 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Check for ESLint Configuration
+      - name: Install Missing ESLint Plugin
         working-directory: autoca-live-divingsum-main
-        run: |
-          if [ ! -f .eslintrc.js ] && [ ! -f .eslintrc.json ] && [ ! -f .eslintrc.yaml ] && [ ! -f .eslintrc.yml ]; then
-            echo "Error: No ESLint configuration file found (.eslintrc.js, .eslintrc.json, .eslintrc.yaml, or .eslintrc.yml)."
-            echo "Please create an ESLint configuration file in the root of your project and commit it."
-            exit 1
-          fi
-        shell: bash
+        run: npm install @typescript-eslint/eslint-plugin@latest --save-dev
 
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
