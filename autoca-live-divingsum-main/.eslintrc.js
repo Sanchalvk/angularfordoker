@@ -1,31 +1,28 @@
-module.exports = {
-  root: true,
-  ignorePatterns: ['projects/**/*'],
-  overrides: [
-    // For TypeScript files
-    {
-      files: ['*.ts'],
+// eslint.config.js
+import js from '@eslint/js';
+import ts from '@typescript-eslint/eslint-plugin';
+import angular from '@angular-eslint/eslint-plugin';
+import angularTemplateParser from '@angular-eslint/template-parser';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default [
+  js.configs.recommended,
+  ts.configs['recommended-type-checked'],
+  angular.configs['recommended'],
+  angular.configs['template-recommended'],
+
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
       parserOptions: {
-        project: ['tsconfig.json'],
-        createDefaultProgram: true,
-      },
-      extends: [
-        'plugin:@angular-eslint/recommended',
-        'plugin:@angular-eslint/template/process-inline-templates'
-      ],
-      rules: {
-        // Add your TS rules here
+        project: [join(__dirname, 'tsconfig.app.json')], // Changed to point to tsconfig.app.json (as an array) with absolute path
+        tsconfigRootDir: __dirname, // Explicitly set the root directory
       },
     },
-    // For Angular templates (HTML files)
-    {
-      files: ['*.html'],
-      parser: '@angular-eslint/template-parser',
-      plugins: ['@angular-eslint/template'],
-      rules: {
-        '@angular-eslint/template/banana-in-box': 'error',
-        // Add your template rules here
-      },
-    },
-  ],
-};
+  },
+  // ... other configurations
+];
