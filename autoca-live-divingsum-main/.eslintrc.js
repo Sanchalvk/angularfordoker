@@ -46,7 +46,7 @@ module.exports = {
 
     // TypeScript specific rules (the ones you just provided)
     '@typescript-eslint/no-explicit-any': 'warn', // Warn against using 'any' type
-    '@typescript-eslint/no-unused-vars': 'warn', // Warn about unused variables (can replace the base 'no-unused-vars')
+    // '@typescript-eslint/no-unused-vars': 'warn', // You might want to enable this and disable the base 'no-unused-vars'
     '@typescript-eslint/no-inferrable-types': 'warn', // Warn against explicitly typing values that can be inferred
     '@typescript-eslint/no-non-null-assertion': 'warn', // Warn against using the non-null assertion operator (!)
 
@@ -70,7 +70,22 @@ module.exports = {
       plugins: ['@angular-eslint/template'],
       extends: ['plugin:@angular-eslint/template/recommended'],
       rules: {
-        // Add specific rules for Angular templates
+        // Explicitly enable the banana-in-box rule (just to be sure it's intended)
+        '@angular-eslint/template/banana-in-box': 'error',
+        // Add other specific rules for Angular templates here if needed
+      },
+    },
+    {
+      files: ['*.ts'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@angular-eslint/recommended',
+        'prettier', // Enforce Prettier on TS files as well (optional)
+      ],
+      rules: {
+        // You can adjust TypeScript specific rules here, or rely on the root level
+        '@typescript-eslint/no-unused-vars': 'warn', // Enable if you want TypeScript's version
+        'no-unused-vars': 'off', // Disable the base JS rule if you enable the TS one
       },
     },
   ],
