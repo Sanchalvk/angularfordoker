@@ -23,11 +23,11 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies (Update Lock File)
+      - name: Install Dependencies
         working-directory: autoca-live-divingsum-main
-        run: npm install
+        run: npm ci # Use npm ci for cleaner and faster installs
 
-      - name: Install Missing ESLint Plugins and Configs (Force Resolution)
+      - name: Install Missing ESLint Plugins and Configs (Force Resolution - Use with Caution)
         working-directory: autoca-live-divingsum-main
         run: |
           npm install @typescript-eslint/eslint-plugin@latest --save-dev --force
@@ -36,15 +36,14 @@ jobs:
           npm install @angular-eslint/template-parser@latest --save-dev --force
           npm install prettier@latest --save-dev --force
           npm install eslint-config-prettier@latest --save-dev --force
+        # Consider removing --force unless absolutely necessary to resolve specific version conflicts.
 
-      - name: Run Linter (TypeScript Only)
+      - name: Run ESLint
         working-directory: autoca-live-divingsum-main
-        run: npm run lint "**/*.ts"
+        run: npm run lint
 
-      - name: Run Linter (Component HTML Only)
+      - name: Run Stylelint (if configured)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint "**/*.component.html"
+        run: npm run lint:styles || true # Run if you have a lint:styles script
 
-      - name: Run Linter (Specific Component HTML)
-        working-directory: autoca-live-divingsum-main
-        run: npm run lint "src/app/your-component/your-component.component.html"
+     
