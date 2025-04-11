@@ -27,6 +27,6 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Run Linter
+      - name: Run Linter (using package.json script)
         working-directory: autoca-live-divingsum-main
-        run: npx eslint "src/**/*.{ts,tsx,js,jsx}" "e2e/**/*.{ts,tsx,js,jsx}" --ignore-pattern "karma.conf.js"
+        run: npm run lint
