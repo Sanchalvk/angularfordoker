@@ -1,4 +1,4 @@
-name: Angular Build and Lint
+name: Angular Build
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-lint:
+  build:
     runs-on: ubuntu-20.04
 
     steps:
@@ -23,14 +23,15 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies
+      - name: Install Dependencies (Sync Lock File)
         working-directory: autoca-live-divingsum-main
-        run: npm ci
-
-      - name: Run Linter
-        working-directory: autoca-live-divingsum-main
-        run: npm run lint
+        run: npm install
 
       - name: Build Angular Application
         working-directory: autoca-live-divingsum-main
         run: npm run build
+
+      - name: Run Linter
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint
+        
