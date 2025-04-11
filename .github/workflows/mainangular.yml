@@ -32,6 +32,7 @@ jobs:
         run: |
           npm install @typescript-eslint/eslint-plugin@latest --save-dev
           npm install @angular-eslint/eslint-plugin@latest --save-dev
+          npm install @angular-eslint/eslint-plugin-template@latest --save-dev
 
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
