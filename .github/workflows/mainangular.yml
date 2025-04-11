@@ -27,15 +27,15 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Install Missing ESLint Plugins and Configs
+      - name: Install Missing ESLint Plugins and Configs (Force Resolution)
         working-directory: autoca-live-divingsum-main
         run: |
-          npm install @typescript-eslint/eslint-plugin@latest --save-dev
-          npm install @angular-eslint/eslint-plugin@latest --save-dev
-          npm install @angular-eslint/eslint-plugin-template@latest --save-dev
-          npm install @angular-eslint/template-parser@latest --save-dev
-          npm install prettier@latest --save-dev
-          npm install eslint-config-prettier@latest --save-dev
+          npm install @typescript-eslint/eslint-plugin@latest --save-dev --force
+          npm install @angular-eslint/eslint-plugin@latest --save-dev --force
+          npm install @angular-eslint/eslint-plugin-template@latest --save-dev --force
+          npm install @angular-eslint/template-parser@latest --save-dev --force
+          npm install prettier@latest --save-dev --force
+          npm install eslint-config-prettier@latest --save-dev --force
 
       - name: Run Linter (TypeScript Only)
         working-directory: autoca-live-divingsum-main
