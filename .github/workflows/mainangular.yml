@@ -1,71 +1,36 @@
-name: Angular Build
-
-
+name: Angular Build and Lint
 
 on:
-
-  push:
-
-    branches: [main]
-
-  pull_request:
-
-    branches: [main]
-
-
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
+  build-and-lint:
+    runs-on: ubuntu-20.04
 
-  build:
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    runs-on: ubuntu-20.04
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.19
 
+      - name: Navigate to Angular Project Folder
+        run: cd autoca-live-divingsum-main
+        shell: bash
 
+      - name: Install Dependencies
+        working-directory: autoca-live-divingsum-main
+        run: npm ci
 
-    steps:
+      - name: Run Linter
+        working-directory: autoca-live-divingsum-main
+        run: npm run lint
 
-      - name: Checkout Code
-
-        uses: actions/checkout@v2
-
-
-
-      - name: Setup Node.js
-
-        uses: actions/setup-node@v4 # Use the version you provided
-
-        with:
-
-          node-version: 18.19 # Use the version you provided
-
-
-
-      - name: Navigate to Angular Project Folder
-
-        run: cd autoca-live-divingsum-main
-
-        shell: bash
-
-
-
-      - name: Install Dependencies (Generate/Update Lock File)
-
-        working-directory: autoca-live-divingsum-main
-
-        run: npm install
-
-
-
-      - name: Build Angular Application
-
-        working-directory: autoca-live-divingsum-main
-
-        run: npm run build
-
-     
-
-      - name: Run Linter
-
-        working-directory: autoca-live-divingsum-main
-
-        run: npm run lint
+      - name: Build Angular Application
+        working-directory: autoca-live-divingsum-main
+        run: npm run build
