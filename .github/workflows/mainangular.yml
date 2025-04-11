@@ -1,4 +1,4 @@
-name: Angular Lint
+name: Angular Build
 
 on:
   push:
@@ -19,8 +19,14 @@ jobs:
         with:
           node-version: 16.14.0
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Navigate to Angular Project Folder
+        run: cd autoca-live-divingsum-main
+        shell: bash
+
+      - name: Install Dependencies (Generate/Update Lock File)
+        working-directory: autoca-live-divingsum-main
+        run: npm install
 
       - name: Build Angular Application
+        working-directory: autoca-live-divingsum-main
         run: npm run build
