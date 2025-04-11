@@ -1,4 +1,4 @@
-name: Angular Build
+name: Angular Build and Lint
 
 on:
   push:
@@ -7,30 +7,38 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build-and-lint:
     runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # Use the version you provided
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.19 # Use the version you provided
+          node-version: 18.19
 
       - name: Navigate to Angular Project Folder
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies (Generate/Update Lock File)
+      - name: Remove node_modules and package-lock.json
+        run: rm -rf ./node_modules ./package-lock.json
+
+      - name: Install Dependencies (Explicit Latest)
         working-directory: autoca-live-divingsum-main
-        run: npm install
+        run: |
+          npm install eslint@latest
+          npm install @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
+          npm install @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest @angular-eslint/builder@latest @angular-eslint/schematics@latest
+          npm install eslint-config-prettier@latest
+          npm install
 
       - name: Build Angular Application
         working-directory: autoca-live-divingsum-main
         run: npm run build
-     
+
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
         run: npm run lint
