@@ -15,9 +15,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4 # Use the version you provided
         with:
-          node-version: 16.14.0
+          node-version: 18.19 # Use the version you provided
 
       - name: Navigate to Angular Project Folder
         run: cd autoca-live-divingsum-main
