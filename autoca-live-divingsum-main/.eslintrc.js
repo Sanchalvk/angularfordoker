@@ -65,27 +65,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.component.html'],
+      files: ['*.component.html', '*.html'],
       parser: '@angular-eslint/template-parser',
       plugins: ['@angular-eslint/template'],
       extends: ['plugin:@angular-eslint/template/recommended'],
       rules: {
-        // Explicitly enable the banana-in-box rule (just to be sure it's intended)
         '@angular-eslint/template/banana-in-box': 'error',
-        // Add other specific rules for Angular templates here if needed
-      },
-    },
-    {
-      files: ['*.ts'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@angular-eslint/recommended',
-        'prettier', // Enforce Prettier on TS files as well (optional)
-      ],
-      rules: {
-        // You can adjust TypeScript specific rules here, or rely on the root level
-        '@typescript-eslint/no-unused-vars': 'warn', // Enable if you want TypeScript's version
-        'no-unused-vars': 'off', // Disable the base JS rule if you enable the TS one
       },
     },
   ],
