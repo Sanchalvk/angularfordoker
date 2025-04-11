@@ -23,11 +23,11 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies
+      - name: Install Dependencies (Sync Lock File)
         working-directory: autoca-live-divingsum-main
-        run: npm ci # Use npm ci for clean installs in CI
+        run: npm install
 
-      - name: Install Missing ESLint Plugins and Configs (Force Resolution)
+      - name: Install Missing ESLint Plugins and Configs (Force Resolution - Consider Removing)
         working-directory: autoca-live-divingsum-main
         run: |
           npm install @typescript-eslint/eslint-plugin@latest --save-dev --force
@@ -36,6 +36,8 @@ jobs:
           npm install @angular-eslint/template-parser@latest --save-dev --force
           npm install prettier@latest --save-dev --force
           npm install eslint-config-prettier@latest --save-dev --force
+        # Consider removing the --force flag unless you have a specific reason for it.
+        # It can sometimes lead to unexpected dependency conflicts.
 
       - name: Run Linter (TypeScript and JavaScript)
         working-directory: autoca-live-divingsum-main
@@ -47,4 +49,4 @@ jobs:
 
       - name: Run Linter (Specific Component HTML - Example)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint "src/app/**/*.component.html" # More robust path
+        run: npm run lint "src/app/**/*.component.html"
