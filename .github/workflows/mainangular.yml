@@ -23,20 +23,9 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies
+      - name: Install Dependencies (Clean Install)
         working-directory: autoca-live-divingsum-main
-        run: npm ci # Use npm ci for cleaner and faster installs
-
-      - name: Install Missing ESLint Plugins and Configs (Force Resolution - Use with Caution)
-        working-directory: autoca-live-divingsum-main
-        run: |
-          npm install @typescript-eslint/eslint-plugin@latest --save-dev --force
-          npm install @angular-eslint/eslint-plugin@latest --save-dev --force
-          npm install @angular-eslint/eslint-plugin-template@latest --save-dev --force
-          npm install @angular-eslint/template-parser@latest --save-dev --force
-          npm install prettier@latest --save-dev --force
-          npm install eslint-config-prettier@latest --save-dev --force
-        # Consider removing --force unless absolutely necessary to resolve specific version conflicts.
+        run: npm ci
 
       - name: Run ESLint
         working-directory: autoca-live-divingsum-main
@@ -44,6 +33,14 @@ jobs:
 
       - name: Run Stylelint (if configured)
         working-directory: autoca-live-divingsum-main
-        run: npm run lint:styles || true # Run if you have a lint:styles script
+        run: npm run lint:styles || true
 
-     
+      # Optional: Check Formatting with Prettier
+      # - name: Check Formatting with Prettier
+      #   working-directory: autoca-live-divingsum-main
+      #   run: npm run format:check || true
+
+      # Optional: Fix ESLint Issues (use with caution on PRs)
+      # - name: Fix ESLint Issues
+      #   working-directory: autoca-live-divingsum-main
+      #   run: npm run lint:fix
