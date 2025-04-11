@@ -25,14 +25,12 @@ jobs:
 
       - name: Install Dependencies
         working-directory: autoca-live-divingsum-main
+        run: npm install
+
+      - name: Update Lock File (if necessary)
+        working-directory: autoca-live-divingsum-main
         run: |
-          if [ -f package-lock.json ]; then
-            echo "Using npm ci"
-            npm ci
-          else
-            echo "No lockfile found, using npm install"
-            npm install
-          fi
+          git diff --exit-code package-lock.json || npm update --package-lock-only
 
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
