@@ -27,33 +27,13 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
-      - name: Create ESLint Configuration (if missing and valid)
+      - name: Check for ESLint Configuration
         working-directory: autoca-live-divingsum-main
         run: |
           if [ ! -f .eslintrc.js ] && [ ! -f .eslintrc.json ] && [ ! -f .eslintrc.yaml ] && [ ! -f .eslintrc.yml ]; then
-            echo "No ESLint configuration found. Creating a basic, valid one..."
-            cat > .eslintrc.js <<EOL
-module.exports = {
-  'env': {
-    'browser': true,
-    'es2021': true,
-    'node': true'
-  },
-  'extends': 'eslint:recommended',
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
-  },
-  'rules': {
-    // Add your specific rules here
-  }
-};
-EOL
-            echo "Basic .eslintrc.js created."
-          elif [ -f .eslintrc.js ]; then
-            # Fix potential syntax error in the basic generated file
-            sed -i 's/    \'node\': true\'/    \'node\': true/g' .eslintrc.js
-            echo "Checked and potentially fixed basic .eslintrc.js."
+            echo "Error: No ESLint configuration file found (.eslintrc.js, .eslintrc.json, .eslintrc.yaml, or .eslintrc.yml)."
+            echo "Please create an ESLint configuration file in the root of your project and commit it."
+            exit 1
           fi
         shell: bash
 
