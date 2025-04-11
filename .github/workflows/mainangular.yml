@@ -27,6 +27,30 @@ jobs:
         working-directory: autoca-live-divingsum-main
         run: npm install
 
+      - name: Create ESLint Configuration (if missing)
+        working-directory: autoca-live-divingsum-main
+        run: |
+          if [ ! -f .eslintrc.js ] && [ ! -f .eslintrc.json ] && [ ! -f .eslintrc.yaml ] && [ ! -f .eslintrc.yml ]; then
+            echo "No ESLint configuration found. Creating a basic one..."
+            echo "module.exports = {" > .eslintrc.js
+            echo "  'env': {" >> .eslintrc.js
+            echo "    'browser': true," >> .eslintrc.js
+            echo "    'es2021': true," >> .eslintrc.js
+            echo "    'node': true'" >> .eslintrc.js
+            echo "  }," >> .eslintrc.js
+            echo "  'extends': 'eslint:recommended'," >> .eslintrc.js
+            echo "  'parserOptions': {" >> .eslintrc.js
+            echo "    'ecmaVersion': 'latest'," >> .eslintrc.js
+            echo "    'sourceType': 'module'" >> .eslintrc.js
+            echo "  }," >> .eslintrc.js
+            echo "  'rules': {" >> .eslintrc.js
+            echo "    // Add your specific rules here" >> .eslintrc.js
+            echo "  }" >> .eslintrc.js
+            echo "};" >> .eslintrc.js
+            echo "Basic .eslintrc.js created."
+          fi
+        shell: bash
+
       - name: Run Linter
         working-directory: autoca-live-divingsum-main
         run: npm run lint
