@@ -1,27 +1,55 @@
-name: ESLint Check # The name of your workflow
+name: Angular Build (Online Lint Check - Conceptual)
 
 on:
-  pull_request: # Trigger this workflow on pull requests
-    types: [opened, synchronize] # Run when a PR is opened or updated
-    branches:
-      - main # Replace 'main' with the name of your main development branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  eslint: # The name of the job
-    name: Run ESLint # A more descriptive name for the job
-    runs-on: ubuntu-latest # The type of machine to run the job on
+  build:
+    runs-on: ubuntu-20.04
 
     steps:
-      - name: Checkout code # Step to download your repository's code
-        uses: actions/checkout@v4 # Use the latest version
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js # Step to set up the Node.js environment
-        uses: actions/setup-node@v4 # Use the latest version
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*' # Use the latest LTS version of Node.js
+          node-version: 18.19
 
-      - name: Install dependencies # Step to install project dependencies
-        run: npm install # Or yarn install
+      - name: Navigate to Angular Project Folder
+        run: cd autoca-live-divingsum-main
+        shell: bash
 
-      - name: Lint # Step to run the ESLint command
-        run: npm run lint # This will execute the 'lint' script from your package.json
+      - name: Install Dependencies (Sync Lock File)
+        working-directory: autoca-live-divingsum-main
+        run: npm install
+
+      - name: Build Angular Application
+        working-directory: autoca-live-divingsum-main
+        run: npm run build
+
+      - name: Run Online Linter (Conceptual - Requires API)
+        working-directory: autoca-live-divingsum-main
+        run: |
+          # This is a placeholder and would need to be adapted
+          # for a specific online linting service's API
+
+          # Example: Assuming a service at online-linter.com/api/check
+          # and that it accepts code via POST request
+
+          find . -name "*.js" -print0 | while IFS= read -r -d $'\0' file; do
+            echo "Linting $file..."
+            CODE=$(cat "$file")
+            RESPONSE=$(curl -X POST -d "code=$CODE" https://online-linter.com/api/check)
+            # Parse the RESPONSE for errors and take action (e.g., fail the workflow)
+            echo "$RESPONSE"
+            # Implement error checking based on the response format
+            if [[ "$RESPONSE" == *"error"* ]]; then
+              echo "Linting errors found. Failing workflow."
+              exit 1
+            fi
+          done
+          # Repeat for .ts files as needed
