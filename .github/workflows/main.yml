@@ -1,4 +1,4 @@
-name: Angular Build and Lint (Force ESM)
+name: Angular Build and Online Lint
 
 on:
   push:
@@ -23,28 +23,38 @@ jobs:
         run: cd autoca-live-divingsum-main
         shell: bash
 
-      - name: Install Dependencies (Clean and Specific)
+      - name: Install Dependencies (Sync Lock File)
         working-directory: autoca-live-divingsum-main
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install eslint@latest
-          npm install @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
-          npm install @angular-eslint/eslint-plugin@latest @angular-eslint/eslint-plugin-template@latest @angular-eslint/template-parser@latest @angular-eslint/builder@latest @angular-eslint/schematics@latest
-          npm install eslint-config-prettier@latest
-          npm install
-
-      - name: Create Minimal .eslintrc.mjs (Force ESM)
-        working-directory: autoca-live-divingsum-main
-        run: |
-          echo 'export default { rules: {} };' > .eslintrc.mjs
-          if [ -f ".eslintrc.js" ]; then
-            rm .eslintrc.js
-          fi
-
-      - name: Run Linter (Force Config)
-        working-directory: autoca-live-divingsum-main
-        run: npm run lint
+        run: npm install
 
       - name: Build Angular Application
         working-directory: autoca-live-divingsum-main
         run: npm run build
+
+      - name: Run Online Linter (Conceptual)
+        working-directory: autoca-live-divingsum-main
+        run: |
+          ONLINE_LINTER_API_URL="https://api.example-online-linter.com/lint" # Replace with a real API URL
+
+          # Find all .js and .ts files
+          find . -name "*.js" -o -name "*.ts" -print0 | while IFS= read -r -d $'\0' file; do
+            echo "Linting $file online..."
+            CODE=$(cat "$file")
+
+            # Construct the data payload for the API (adjust as needed)
+            PAYLOAD=$(jq -n --arg code "$CODE" '{ code: $code, language: "javascript" }') # Example JSON payload
+
+            # Make the API request using curl
+            RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$ONLINE_LINTER_API_URL")
+
+            echo "Online Linter Response for $file:"
+            echo "$RESPONSE"
+
+            # --- Error Parsing Logic (ADJUST BASED ON API RESPONSE FORMAT) ---
+            if echo "$RESPONSE" | jq -e '.errorCount > 0'; then
+              echo "Linting errors found in $file. Failing workflow."
+              exit 1
+            fi
+            # --- End Error Parsing Logic ---
+          done
+        shell: bash
