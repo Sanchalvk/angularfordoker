@@ -9,7 +9,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -29,23 +28,7 @@ jobs:
         shell: bash
         continue-on-error: true
 
-      - name: Run npm ilint (Note: Likely a typo, assuming intended as 'npm run lint')
-        run: npm run lint
-        working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
-        shell: bash
-
-      - name: Run npm lint @eslint/config (Note: This is not a standard command for linting)
-        run: npm lint @eslint/config
-        working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
-        shell: bash
-        continue-on-error: true # Add this as it's not a standard linting command
-
-      - name: Run npm install (Redundant after the first install)
-        run: npm install
-        working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
-        shell: bash
-
-      - name: Run ng lint
+      - name: Run ng lint (Angular CLI linting)
         run: ng lint
         working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
         shell: bash
