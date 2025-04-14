@@ -19,8 +19,18 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Dependencies
-        run: npm install
+    #  - name: Install Dependencies
+     #   run: npm install
 
-      - name: Run ESLint
-        run: npm run lint
+      - name: check ESLint
+        run: npm i eslint
+        shell: bash
+      - name:  insall eslint
+        run: npm lint @eslint/config
+      - name: check dependancy
+        run: npm  install
+        shell: bash
+      - name: run code
+        run: ng lint
+        shell: bash
+        
