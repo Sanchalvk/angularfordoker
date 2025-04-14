@@ -22,13 +22,7 @@ jobs:
         run: npm install
         working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
 
-      - name: Initialize ESLint Configuration (Potentially Problematic)
-        run: npm init @eslint/config --yes
-        working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
-        shell: bash
-        continue-on-error: true
-
-      - name: Run ng lint (Angular CLI linting)
-        run: ng lint
+      - name: Run ESLint
+        run: npm run lint
         working-directory: ${{ github.workspace }}/autoca-live-divingsum-main
         shell: bash
