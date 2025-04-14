@@ -1,4 +1,4 @@
-name: Angular ESLint
+name: Angular ESLint for
 
 on:
   push:
@@ -19,18 +19,9 @@ jobs:
         with:
           node-version: '18'
 
-    #  - name: Install Dependencies
-     #   run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-      - name: check ESLint
-        run: npm i eslint
+      - name: Run ESLint
+        run: npm run lint
         shell: bash
-      - name:  insall eslint
-        run: npm lint @eslint/config
-      - name: check dependancy
-        run: npm  install
-        shell: bash
-      - name: run code
-        run: ng lint
-        shell: bash
-        
