@@ -19,10 +19,10 @@ import { DefaultFooterComponent, DefaultHeaderComponent } from './';
 import { navItems } from './_nav';
 
 //function isOverflown(element: HTMLElement) {
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
+  //return (
+    //element.scrollHeight > element.clientHeight ||
+    //element.scrollWidth > element.clientWidth
+  //);
 //}
 
 @Component({
