@@ -16,7 +16,7 @@ import {
 import { IconDirective } from '@coreui/icons-angular';
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
-import { navItems } from './_nav';
+//import { navItems } from './_nav';
 
 //function isOverflown(element: HTMLElement) {
   //return (
