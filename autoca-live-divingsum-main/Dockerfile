@@ -21,7 +21,7 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy the built Angular application from the builder stage
-COPY --from=builder /app/dist/<your-app-name> /usr/share/nginx/html
+COPY --from=builder /app/  /usr/share/nginx/html
 
 # Copy custom Nginx configuration (optional)
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
